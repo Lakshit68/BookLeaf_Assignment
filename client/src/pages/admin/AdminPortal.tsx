@@ -262,30 +262,75 @@ export const AdminPortal: React.FC = () => {
 
   return (
     <div className="main-content">
+      {/* Ops Command Center Header */}
+      <div
+        className="glass-panel"
+        style={{
+          padding: '24px 28px',
+          marginBottom: '24px',
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          gap: '16px'
+        }}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+            <h1 style={{ fontSize: '1.85rem', fontFamily: 'var(--font-heading)' }}>
+              Operations Command Center
+            </h1>
+            <span
+              className="badge"
+              style={{
+                background: 'rgba(99, 102, 241, 0.15)',
+                color: '#818cf8',
+                border: '1px solid rgba(99, 102, 241, 0.4)'
+              }}
+            >
+              AI Copilot Active
+            </span>
+          </div>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+            BookLeaf Catalog Operations • 22,000+ Titles • Automated Triage & Knowledge Base Grounding
+          </p>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            onClick={loadQueue}
+            className="btn btn-secondary btn-sm"
+            style={{ display: 'flex', alignItems: 'center', gap: '6px' }}
+          >
+            <RefreshCw size={14} /> Sync Queue
+          </button>
+        </div>
+      </div>
+
       {/* Top Banner / Metrics Overview */}
       {stats && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px' }}>
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: '16px'
             }}
           >
-            <div className="stat-card" style={{ borderLeft: '4px solid #6366f1' }}>
-              <span className="stat-lbl">Open Tickets Queue</span>
+            <div className="stat-card" style={{ borderTop: '3px solid #6366f1' }}>
+              <span className="stat-lbl">Active Queue Volume</span>
               <div className="stat-val">{stats.metrics.openTickets}</div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {stats.metrics.inProgressTickets} in progress • {stats.metrics.totalTickets} total
+                {stats.metrics.inProgressTickets} in progress • {stats.metrics.totalTickets} total lifetime
               </div>
             </div>
 
-            <div className="stat-card" style={{ borderLeft: '4px solid #ef4444' }}>
+            <div className="stat-card" style={{ borderTop: '3px solid #ff3366' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span className="stat-lbl">Critical / High Priority</span>
-                <Flame size={18} color="#ef4444" />
+                <span className="stat-lbl">Critical / High Severity</span>
+                <Flame size={18} color="#ff3366" />
               </div>
-              <div className="stat-val" style={{ color: '#f87171' }}>
+              <div className="stat-val" style={{ color: '#ffa1b5' }}>
                 {stats.metrics.criticalTickets + stats.metrics.highTickets}
               </div>
               <div style={{ fontSize: '0.75rem', color: '#fca5a5' }}>
@@ -293,7 +338,7 @@ export const AdminPortal: React.FC = () => {
               </div>
             </div>
 
-            <div className="stat-card" style={{ borderLeft: '4px solid #10b981' }}>
+            <div className="stat-card" style={{ borderTop: '3px solid #10b981' }}>
               <span className="stat-lbl">Resolved & Closed</span>
               <div className="stat-val" style={{ color: '#34d399' }}>
                 {stats.metrics.resolvedTickets + stats.metrics.closedTickets}
@@ -303,11 +348,13 @@ export const AdminPortal: React.FC = () => {
               </div>
             </div>
 
-            <div className="stat-card" style={{ borderLeft: '4px solid #f59e0b' }}>
-              <span className="stat-lbl">Author Catalog Base</span>
-              <div className="stat-val">{stats.metrics.totalAuthors}</div>
+            <div className="stat-card" style={{ borderTop: '3px solid #00e5ff' }}>
+              <span className="stat-lbl">Author Base & Catalog</span>
+              <div className="stat-val" style={{ color: '#00e5ff' }}>
+                {stats.metrics.totalAuthors}
+              </div>
               <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
-                {stats.metrics.totalBooks} published & pipeline titles
+                Across {stats.metrics.totalBooks} published & pipeline titles
               </div>
             </div>
           </div>

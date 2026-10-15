@@ -245,13 +245,16 @@ export const AuthorPortal: React.FC = () => {
         }}
       >
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-            <h1 style={{ fontSize: '1.75rem' }}>Welcome, {user?.name}</h1>
-            <span className="badge badge-status-resolved">Author Account</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '6px' }}>
+            <h1 style={{ fontSize: '1.85rem', fontFamily: 'var(--font-heading)' }}>
+              Creator Studio — <span className="gradient-text-cyan">{user?.name}</span>
+            </h1>
+            <span className="badge badge-status-resolved" style={{ background: 'rgba(0, 229, 255, 0.1)', color: '#00e5ff', borderColor: 'rgba(0, 229, 255, 0.3)' }}>
+              Author Portal
+            </span>
           </div>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-            Author ID: <span style={{ fontFamily: 'var(--font-mono)', color: '#ffffff' }}>{user?.id}</span> •{' '}
-            {user?.email} • Member since {user?.joined_date || '2023'}
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+            Author ID: <span style={{ fontFamily: 'var(--font-mono)', color: '#00e5ff' }}>{user?.id}</span> • {user?.email} • Publishing Partner Since {user?.joined_date || '2023'}
           </p>
         </div>
 
@@ -259,42 +262,44 @@ export const AuthorPortal: React.FC = () => {
         <div
           style={{
             display: 'flex',
-            backgroundColor: 'rgba(255, 255, 255, 0.05)',
+            backgroundColor: 'rgba(255, 255, 255, 0.04)',
             padding: '4px',
             borderRadius: 'var(--radius-md)',
-            border: '1px solid var(--border-subtle)'
+            border: '1px solid var(--border-subtle)',
+            gap: '4px'
           }}
         >
           <button
             onClick={() => setActiveTab('books')}
             className={`btn btn-sm ${activeTab === 'books' ? 'btn-primary' : 'btn-ghost'}`}
           >
-            <BookOpen size={15} />
-            My Books ({books.length})
+            <Layers size={14} />
+            My Titles ({books.length})
           </button>
           <button
             onClick={() => setActiveTab('submit')}
             className={`btn btn-sm ${activeTab === 'submit' ? 'btn-primary' : 'btn-ghost'}`}
           >
-            <Send size={15} />
-            Submit Query
+            <Send size={14} />
+            New Query
           </button>
           <button
             onClick={() => setActiveTab('tickets')}
             className={`btn btn-sm ${activeTab === 'tickets' ? 'btn-primary' : 'btn-ghost'}`}
             style={{ position: 'relative' }}
           >
-            <TicketIcon size={15} />
-            My Tickets ({tickets.length})
+            <TicketIcon size={14} />
+            Support Stream ({tickets.length})
             {tickets.some(t => t.status === 'Open' || t.status === 'In Progress') && (
               <span
                 style={{
-                  width: '7px',
-                  height: '7px',
-                  backgroundColor: '#10b981',
+                  width: '6px',
+                  height: '6px',
+                  backgroundColor: '#00e5ff',
                   borderRadius: '50%',
                   display: 'inline-block',
-                  marginLeft: '4px'
+                  marginLeft: '4px',
+                  boxShadow: '0 0 8px #00e5ff'
                 }}
               />
             )}
@@ -302,7 +307,7 @@ export const AuthorPortal: React.FC = () => {
         </div>
       </div>
 
-      {/* TAB 1: MY BOOKS */}
+      {/* TAB 1: MY BOOKS (CREATOR STUDIO RELEASES) */}
       {activeTab === 'books' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
           {/* Summary Metric Cards */}
@@ -310,55 +315,61 @@ export const AuthorPortal: React.FC = () => {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
                 gap: '16px'
               }}
             >
-              <div className="stat-card">
+              <div className="stat-card" style={{ borderTop: '3px solid #6366f1' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="stat-lbl">Total Published Books</span>
-                  <BookOpen size={20} color="#818cf8" />
+                  <span className="stat-lbl">Published Catalog Titles</span>
+                  <BookOpen size={18} color="#818cf8" />
                 </div>
                 <div className="stat-val">{booksSummary.publishedBooks}</div>
                 {booksSummary.inProductionBooks > 0 && (
-                  <div style={{ fontSize: '0.75rem', color: '#f59e0b' }}>
-                    + {booksSummary.inProductionBooks} In Production
+                  <div style={{ fontSize: '0.75rem', color: '#f59e0b', fontWeight: 600 }}>
+                    ⚡ {booksSummary.inProductionBooks} In Production Pipeline
                   </div>
                 )}
               </div>
 
-              <div className="stat-card">
+              <div className="stat-card" style={{ borderTop: '3px solid #00e5ff' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="stat-lbl">Total Copies Sold</span>
-                  <Layers size={20} color="#34d399" />
+                  <span className="stat-lbl">Global Units Distributed</span>
+                  <Layers size={18} color="#00e5ff" />
                 </div>
-                <div className="stat-val">{booksSummary.totalCopiesSold.toLocaleString('en-IN')}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Across all channels</div>
+                <div className="stat-val" style={{ color: '#00e5ff' }}>
+                  {booksSummary.totalCopiesSold.toLocaleString('en-IN')}
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  Across Amazon, Flipkart & BookLeaf Store
+                </div>
               </div>
 
-              <div className="stat-card">
+              <div className="stat-card" style={{ borderTop: '3px solid #10b981' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <span className="stat-lbl">Total Royalties Earned</span>
-                  <DollarSign size={20} color="#10b981" />
+                  <DollarSign size={18} color="#10b981" />
                 </div>
                 <div className="stat-val" style={{ color: '#34d399' }}>
                   ₹{booksSummary.totalRoyaltyEarned.toLocaleString('en-IN')}
                 </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>80% author profit split</div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                  BookLeaf 80/20 Net Profit Allocation
+                </div>
               </div>
 
-              <div className="stat-card">
+              <div className="stat-card" style={{ borderTop: '3px solid #f59e0b' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <span className="stat-lbl">Royalty Pending Payout</span>
-                  <Clock size={20} color="#f59e0b" />
+                  <span className="stat-lbl">Pending Quarterly Payout</span>
+                  <Clock size={18} color="#f59e0b" />
                 </div>
                 <div className="stat-val" style={{ color: '#fcd34d' }}>
                   ₹{booksSummary.totalRoyaltyPending.toLocaleString('en-IN')}
                 </div>
                 <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
                   {booksSummary.totalRoyaltyPending >= 1000
-                    ? 'Eligible for next quarterly cycle'
-                    : 'Below ₹1,000 threshold (rolls over)'}
+                    ? 'Eligible for next quarterly bank transfer'
+                    : 'Below ₹1,000 threshold (accumulates to next cycle)'}
                 </div>
               </div>
             </div>
@@ -367,25 +378,32 @@ export const AuthorPortal: React.FC = () => {
           {/* Book Catalog Cards */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <h3 style={{ fontSize: '1.2rem' }}>Published Titles & Production Status</h3>
+              <div>
+                <h3 style={{ fontSize: '1.25rem', fontFamily: 'var(--font-heading)' }}>
+                  Release Studio & Distribution Status
+                </h3>
+                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  Production pipeline progression, channel availability, and royalty yields
+                </p>
+              </div>
               <button
                 onClick={() => setActiveTab('submit')}
-                className="btn btn-emerald btn-sm"
+                className="btn btn-primary btn-sm"
               >
-                <Send size={14} /> Raise Query for a Book
+                <Send size={14} /> Open Support Query
               </button>
             </div>
 
             {isLoadingBooks ? (
               <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                Loading your published books...
+                Loading release studio catalog...
               </div>
             ) : books.length === 0 ? (
               <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>
-                No books registered under this author profile.
+                No titles registered under this author profile.
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(420px, 1fr))', gap: '18px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(420px, 1fr))', gap: '20px' }}>
                 {books.map((b) => {
                   const isInProduction = b.status.includes('Production');
                   return (
@@ -393,56 +411,86 @@ export const AuthorPortal: React.FC = () => {
                       key={b.id}
                       className="glass-panel"
                       style={{
-                        padding: '22px',
+                        padding: '24px',
                         display: 'flex',
                         flexDirection: 'column',
                         justifyContent: 'space-between',
-                        borderLeft: isInProduction
-                          ? '4px solid #f59e0b'
-                          : '4px solid #10b981'
+                        borderTop: isInProduction
+                          ? '3px solid #f59e0b'
+                          : '3px solid #00e5ff',
+                        position: 'relative'
                       }}
                     >
                       <div>
-                        {/* Title & Status */}
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px' }}>
+                        {/* Title Header */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '12px', marginBottom: '8px' }}>
                           <div>
-                            <h4 style={{ fontSize: '1.15rem', color: '#ffffff', marginBottom: '4px' }}>
+                            <h4 style={{ fontSize: '1.2rem', color: '#ffffff', marginBottom: '4px', fontFamily: 'var(--font-heading)' }}>
                               {b.title}
                             </h4>
                             <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
                               Genre: <span style={{ color: '#e2e8f0' }}>{b.genre}</span> • ID:{' '}
-                              <span style={{ fontFamily: 'var(--font-mono)' }}>{b.id}</span>
+                              <span style={{ fontFamily: 'var(--font-mono)', color: '#818cf8' }}>{b.id}</span>
                             </div>
                           </div>
                           {isInProduction ? (
-                            <span className="badge badge-status-in-progress">{b.status}</span>
+                            <span className="badge badge-priority-medium">{b.status}</span>
                           ) : (
-                            <span className="badge badge-status-resolved">Published & Live</span>
+                            <span className="badge badge-status-resolved" style={{ background: 'rgba(0, 229, 255, 0.1)', color: '#00e5ff', borderColor: 'rgba(0, 229, 255, 0.3)' }}>
+                              ● Live on Channels
+                            </span>
                           )}
                         </div>
 
-                        {/* Details Grid */}
+                        {/* Pipeline Progress Step Track (For Books in Production) */}
+                        {isInProduction ? (
+                          <div style={{ margin: '14px 0', padding: '12px', background: 'rgba(255, 255, 255, 0.03)', borderRadius: 'var(--radius-md)', border: '1px solid rgba(255, 255, 255, 0.06)' }}>
+                            <div style={{ fontSize: '0.72rem', color: '#f59e0b', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '8px' }}>
+                              Production Lifecycle Pipeline
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '6px', flexWrap: 'wrap' }}>
+                              <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: 'var(--radius-full)', background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', fontWeight: 600 }}>
+                                ✓ Manuscript
+                              </span>
+                              <span style={{ color: 'var(--text-dim)', fontSize: '0.7rem' }}>→</span>
+                              <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: 'var(--radius-full)', background: 'rgba(245, 158, 11, 0.2)', color: '#fbbf24', fontWeight: 700, border: '1px solid rgba(245, 158, 11, 0.4)' }}>
+                                ● {b.status.replace('In Production - ', '')} (Active)
+                              </span>
+                              <span style={{ color: 'var(--text-dim)', fontSize: '0.7rem' }}>→</span>
+                              <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: 'var(--radius-full)', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--text-dim)' }}>
+                                Proofing
+                              </span>
+                              <span style={{ color: 'var(--text-dim)', fontSize: '0.7rem' }}>→</span>
+                              <span style={{ fontSize: '0.7rem', padding: '2px 8px', borderRadius: 'var(--radius-full)', background: 'rgba(255, 255, 255, 0.05)', color: 'var(--text-dim)' }}>
+                                Global Live
+                              </span>
+                            </div>
+                          </div>
+                        ) : null}
+
+                        {/* Specs Grid */}
                         <div
                           style={{
-                            marginTop: '16px',
+                            marginTop: '12px',
                             display: 'grid',
                             gridTemplateColumns: 'repeat(2, 1fr)',
-                            gap: '12px',
+                            gap: '10px',
                             backgroundColor: 'rgba(255, 255, 255, 0.02)',
                             padding: '12px',
-                            borderRadius: 'var(--radius-md)'
+                            borderRadius: 'var(--radius-md)',
+                            border: '1px solid rgba(255, 255, 255, 0.05)'
                           }}
                         >
                           <div>
-                            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block' }}>ISBN</span>
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>ISBN</span>
                             <span style={{ fontSize: '0.85rem', fontFamily: 'var(--font-mono)' }}>
-                              {b.isbn || 'Pending Assignment'}
+                              {b.isbn || 'Pending ISBN Allocation'}
                             </span>
                           </div>
 
                           <div>
-                            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block' }}>
-                              Publication Date
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                              Release Date
                             </span>
                             <span style={{ fontSize: '0.85rem' }}>
                               {b.publication_date || 'In Production Pipeline'}
@@ -450,60 +498,61 @@ export const AuthorPortal: React.FC = () => {
                           </div>
 
                           <div>
-                            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block' }}>
-                              Retail MRP / Royalty
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                              Retail Pricing & Yield
                             </span>
                             <span style={{ fontSize: '0.85rem' }}>
-                              {b.mrp ? `₹${b.mrp} (₹${b.author_royalty_per_copy}/copy)` : 'TBD upon release'}
+                              {b.mrp ? `₹${b.mrp} MRP (₹${b.author_royalty_per_copy}/copy yield)` : 'Calculated upon proof approval'}
                             </span>
                           </div>
 
                           <div>
-                            <span style={{ fontSize: '0.72rem', color: 'var(--text-dim)', display: 'block' }}>
-                              Print Partner
+                            <span style={{ fontSize: '0.7rem', color: 'var(--text-dim)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                              Fulfillment Partner
                             </span>
                             <span style={{ fontSize: '0.85rem' }}>{b.print_partner || 'BookLeaf Delhi Ops'}</span>
                           </div>
                         </div>
 
-                        {/* Royalty & Copies Row */}
+                        {/* Royalty Financials (Published Books) */}
                         {!isInProduction && (
                           <div
                             style={{
-                              marginTop: '14px',
+                              marginTop: '12px',
                               padding: '12px',
                               borderRadius: 'var(--radius-md)',
-                              backgroundColor: 'rgba(16, 185, 129, 0.06)',
-                              border: '1px solid rgba(16, 185, 129, 0.2)',
+                              backgroundColor: 'rgba(0, 229, 255, 0.05)',
+                              border: '1px solid rgba(0, 229, 255, 0.18)',
                               display: 'flex',
                               justifyContent: 'space-between',
                               alignItems: 'center'
                             }}
                           >
                             <div>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Copies Sold</div>
-                              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#ffffff' }}>
+                              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Copies Shipped</div>
+                              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
                                 {b.total_copies_sold.toLocaleString('en-IN')}
                               </div>
                             </div>
                             <div style={{ textAlign: 'center' }}>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Total Royalty</div>
-                              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#34d399' }}>
+                              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Total Royalty</div>
+                              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#00e5ff', fontFamily: 'var(--font-heading)' }}>
                                 ₹{b.total_royalty_earned.toLocaleString('en-IN')}
                               </div>
                             </div>
                             <div style={{ textAlign: 'right' }}>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>Pending Payout</div>
-                              <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#fcd34d' }}>
+                              <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Pending Payout</div>
+                              <div style={{ fontSize: '1.15rem', fontWeight: 700, color: '#fcd34d', fontFamily: 'var(--font-heading)' }}>
                                 ₹{b.royalty_pending.toLocaleString('en-IN')}
                               </div>
                             </div>
                           </div>
                         )}
 
-                        {/* Availability Tags */}
+                        {/* Distribution Channel Pills */}
                         {b.available_on && b.available_on.length > 0 && (
-                          <div style={{ marginTop: '14px', display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                          <div style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '6px', alignItems: 'center' }}>
+                            <span style={{ fontSize: '0.68rem', color: 'var(--text-dim)', marginRight: '4px' }}>CHANNELS:</span>
                             {b.available_on.map((ch, idx) => (
                               <span
                                 key={idx}
@@ -511,10 +560,15 @@ export const AuthorPortal: React.FC = () => {
                                   fontSize: '0.7rem',
                                   padding: '2px 8px',
                                   borderRadius: 'var(--radius-full)',
-                                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                                  color: 'var(--text-muted)'
+                                  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                                  color: '#cbd5e1',
+                                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                                  display: 'flex',
+                                  alignItems: 'center',
+                                  gap: '4px'
                                 }}
                               >
+                                <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#00e5ff' }} />
                                 {ch}
                               </span>
                             ))}
@@ -527,7 +581,7 @@ export const AuthorPortal: React.FC = () => {
                         <button
                           onClick={() => {
                             setSelectedBookId(b.id);
-                            setSubject(`Query regarding ${b.title}`);
+                            setSubject(`Support inquiry regarding ${b.title}`);
                             setActiveTab('submit');
                           }}
                           className="btn btn-ghost btn-sm"

@@ -63,34 +63,49 @@ export const Navbar: React.FC = () => {
               style={{
                 width: '38px',
                 height: '38px',
-                borderRadius: '10px',
-                background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
+                borderRadius: '11px',
+                background: 'linear-gradient(135deg, #00e5ff 0%, #6366f1 50%, #a855f7 100%)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 4px 12px rgba(99, 102, 241, 0.3)'
+                boxShadow: '0 4px 16px rgba(0, 229, 255, 0.35)',
+                position: 'relative'
               }}
             >
-              <BookOpen size={20} color="#ffffff" />
+              <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.1rem', color: '#030712' }}>
+                BL
+              </span>
             </div>
 
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <span style={{ fontWeight: 800, fontSize: '1.1rem', letterSpacing: '-0.02em', color: '#ffffff' }}>
+                <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '1.15rem', letterSpacing: '-0.02em', color: '#ffffff' }}>
                   BookLeaf
                 </span>
-                <span style={{ fontSize: '0.75rem', fontWeight: 600, color: 'var(--text-dim)', letterSpacing: '0.05em' }}>
-                  PUBLISHING
+                <span
+                  style={{
+                    fontSize: '0.68rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.08em',
+                    padding: '2px 7px',
+                    borderRadius: 'var(--radius-xs)',
+                    background: 'rgba(0, 229, 255, 0.12)',
+                    color: '#00e5ff',
+                    border: '1px solid rgba(0, 229, 255, 0.3)',
+                    textTransform: 'uppercase'
+                  }}
+                >
+                  STUDIO
                 </span>
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                 {user?.role === 'admin' ? (
                   <span style={{ color: '#818cf8', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
-                    <ShieldCheck size={13} /> Admin Operations Portal
+                    <ShieldCheck size={13} /> Operations Command Center
                   </span>
                 ) : (
                   <span style={{ color: '#34d399', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}>
-                    <UserCheck size={13} /> Author Support Hub
+                    <UserCheck size={13} /> Author Creator Hub
                   </span>
                 )}
               </div>

@@ -62,19 +62,24 @@ export const Login: React.FC = () => {
               width: '54px',
               height: '54px',
               borderRadius: '16px',
-              background: 'linear-gradient(135deg, #6366f1 0%, #10b981 100%)',
+              background: 'linear-gradient(135deg, #00e5ff 0%, #6366f1 50%, #a855f7 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: '0 auto 16px auto',
-              boxShadow: '0 8px 24px rgba(99, 102, 241, 0.35)'
+              boxShadow: '0 8px 26px rgba(0, 229, 255, 0.35)',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
             }}
           >
-            <BookOpen size={28} color="#ffffff" />
+            <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: '#030712' }}>
+              BL
+            </span>
           </div>
-          <h2 style={{ fontSize: '1.6rem', marginBottom: '6px' }}>BookLeaf Portal</h2>
+          <h2 style={{ fontSize: '1.75rem', marginBottom: '6px', fontFamily: 'var(--font-heading)' }}>
+            BookLeaf <span className="gradient-text-cyan">Studio</span>
+          </h2>
           <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
-            Author Support & Operations Communication System
+            Author Operations Hub & AI Triage Nexus
           </p>
         </div>
 
