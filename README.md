@@ -6,7 +6,7 @@ Powered by **AI-assisted ticket classification**, **automatic priority scoring**
 
 ---
 
-## 📑 Table of Contents
+##  Table of Contents
 1. [Key Features](#-key-features)
 2. [Architecture & System Design](#-architecture--system-design)
 3. [Technology Stack](#-technology-stack)
@@ -19,7 +19,7 @@ Powered by **AI-assisted ticket classification**, **automatic priority scoring**
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
 ### 1. Author-Facing Portal
 - **Email/Password Authentication**: Secure JWT-based authentication with strict data isolation.
@@ -66,7 +66,7 @@ Powered by **AI-assisted ticket classification**, **automatic priority scoring**
 
 ---
 
-## 🏛 Architecture & System Design
+##  Architecture & System Design
 
 ```
                      ┌────────────────────────────────────────┐
@@ -105,7 +105,7 @@ Powered by **AI-assisted ticket classification**, **automatic priority scoring**
 
 ---
 
-## 🛠 Technology Stack
+##  Technology Stack
 
 | Layer | Technology | Rationale |
 |---|---|---|
@@ -121,7 +121,7 @@ Powered by **AI-assisted ticket classification**, **automatic priority scoring**
 
 ---
 
-## 🧠 AI Integration Architecture
+##  AI Integration Architecture
 
 ### 1. Prompt Engineering & Tone Calibration
 BookLeaf communication tone guidelines are directly integrated into system instructions:
@@ -148,7 +148,7 @@ The AI system supports:
 
 ---
 
-## 👥 Pre-Seeded Test Credentials
+##  Pre-Seeded Test Credentials
 
 The database is pre-seeded with all **10 authors and 18 books** from `bookleaf_sample_data.json` alongside 5 realistic sample tickets.
 
@@ -165,7 +165,7 @@ The database is pre-seeded with all **10 authors and 18 books** from `bookleaf_s
 
 ---
 
-## 🚀 Quick Start & Setup Guide
+##  Quick Start & Setup Guide
 
 ### Prerequisites
 - Node.js >= 18 (Tested on v20.20.0)
@@ -202,7 +202,7 @@ Open your browser at:
 
 ---
 
-## 📡 REST API Documentation
+##  REST API Documentation
 
 Full interactive OpenAPI 3.0 documentation is hosted live at `/api/docs`.
 
@@ -226,7 +226,7 @@ Full interactive OpenAPI 3.0 documentation is hosted live at `/api/docs`.
 
 ---
 
-## 🧪 Automated Test Suite
+##  Automated Test Suite
 
 A comprehensive test suite verifies data integrity, RBAC isolation, AI classification accuracy, token optimization, and edge case handling:
 
@@ -244,6 +244,6 @@ npm --prefix server run test
 
 ---
 
-## ⚖️ Trade-Offs & Production Evolution
+##  Trade-Offs & Production Evolution
 
 See the accompanying **[WRITEUP.md](file:///Users/deevs/Documents/Book_leaf/WRITEUP.md)** for the detailed 1-page architectural write-up covering priorities, trade-offs made, and evolution into an enterprise-scale production system.
