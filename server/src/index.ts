@@ -4,7 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import swaggerUi from 'swagger-ui-express';
 import { config } from './config';
-import { initDb } from './db';
+import { db, initDb } from './db';
 import { seedDatabase } from './db/seed';
 import { initSocketService } from './services/socketService';
 import { errorHandler } from './middleware/errorHandler';
@@ -42,13 +42,13 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use('/uploads', express.static(config.uploadDir));
 
 // Interactive Swagger / OpenAPI Documentation
-app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(openApiSpec, {
+app.use('/api/docs', ...(swaggerUi.serve as any), (swaggerUi.setup(openApiSpec, {
   customSiteTitle: 'BookLeaf API Documentation',
   customCss: '.swagger-ui .topbar { display: none }',
   swaggerOptions: {
     persistAuthorization: true
   }
-}));
+}) as any));
 
 // Direct JSON OpenAPI spec route
 app.get('/api/docs.json', (req, res) => {
@@ -76,7 +76,7 @@ app.use('/api/ai', aiRoutes);
 app.use(errorHandler);
 
 // Start server
-server.listen(config.port, () => {
+server.listen(config.port, '0.0.0.0', () => {
   console.log(`====================================================`);
   console.log(`🚀 BookLeaf Support API Server running on port ${config.port}`);
   console.log(`📖 Interactive API Docs: http://localhost:${config.port}/api/docs`);
@@ -84,5 +84,21 @@ server.listen(config.port, () => {
   console.log(`🤖 AI Provider: ${config.ai.provider.toUpperCase()}`);
   console.log(`====================================================`);
 });
+
+const gracefulShutdown = (signal: string) => {
+  console.log(`${signal} received. Closing HTTP server and SQLite database...`);
+  server.close(() => {
+    try {
+      db.close();
+      console.log('SQLite database closed successfully.');
+    } catch (err) {
+      console.error('Error closing SQLite database:', err);
+    }
+    process.exit(0);
+  });
+};
+
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 export { app, server };

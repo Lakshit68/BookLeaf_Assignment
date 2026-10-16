@@ -53,7 +53,7 @@ const router = Router();
 router.use(requireAuth);
 
 // File Upload endpoint (bonus requirement in Section A: "optional file attachment support")
-router.post('/upload', upload.single('attachment'), (req: Request, res: Response) => {
+router.post('/upload', upload.single('attachment') as any, (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(400).json({ error: 'ValidationError', message: 'No file uploaded' });
   }

@@ -7,7 +7,9 @@ export function seedDatabase() {
   initDb();
 
   // Check if users already seeded
-  const userCount = (db.prepare('SELECT COUNT(*) as count FROM users').get() as { count: number }).count;
+  const checkStmt = db.prepare('SELECT COUNT(*) as count FROM users');
+  const userRow = checkStmt.get() as { count: number } | undefined;
+  const userCount = userRow ? userRow.count : 0;
   if (userCount > 0) {
     console.log(`Database already contains ${userCount} users. Skipping seed.`);
     return;
