@@ -28,7 +28,6 @@ export const Navbar: React.FC = () => {
       console.error('Failed to load demo users:', err);
     }
   };
-
   const handleSelectUser = async (email: string, role: 'author' | 'admin') => {
     await quickLogin(email, role);
     setShowDemoModal(false);
