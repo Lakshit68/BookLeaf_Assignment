@@ -62,7 +62,6 @@ export const AuthorPortal: React.FC = () => {
       setIsLoadingBooks(false);
     }
   };
-
   const loadTickets = async () => {
     setIsLoadingTickets(true);
     try {
