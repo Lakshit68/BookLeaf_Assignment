@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npm rebuild better-sqlite3 && tsc",
+    "postinstall": "npm rebuild better-sqlite3",
     "start": "node dist/index.js",
     "seed": "tsx src/db/seed.ts",
     "test": "tsx src/test.ts"
