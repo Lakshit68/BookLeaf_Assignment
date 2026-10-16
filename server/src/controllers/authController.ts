@@ -67,7 +67,6 @@ export async function getDemoUsers(req: Request, res: Response) {
     FROM users
     ORDER BY role DESC, name ASC
   `).all();
-
   res.json({
     users,
     defaultPasswords: {
