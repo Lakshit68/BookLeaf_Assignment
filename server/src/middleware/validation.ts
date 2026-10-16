@@ -48,7 +48,6 @@ export const updateTicketSchema = z.object({
   ]).optional(),
   assigned_to: z.string().nullable().optional()
 });
-
 export const createMessageSchema = z.object({
   message: z.string().min(2, 'Message cannot be empty'),
   is_ai_assisted: z.boolean().optional()
