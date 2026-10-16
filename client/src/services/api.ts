@@ -1,6 +1,13 @@
 import { User, Book, BooksSummary, Ticket, TicketMessage, TicketNote, AiDraft, AdminStats, StaffMember } from '../types';
 
-const API_BASE = '/api';
+export const BACKEND_URL = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
+const API_BASE = BACKEND_URL ? `${BACKEND_URL}/api` : '/api';
+
+export const getAttachmentUrl = (url: string | null | undefined): string => {
+  if (!url) return '';
+  if (url.startsWith('http://') || url.startsWith('https://')) return url;
+  return BACKEND_URL ? `${BACKEND_URL}${url.startsWith('/') ? '' : '/'}${url}` : url;
+};
 
 class ApiService {
   private token: string | null = null;

@@ -10,8 +10,9 @@ class SocketService {
       return;
     }
 
-    // Connect to same host or configured backend
-    this.socket = io({
+    // Connect to configured backend URL or same host
+    const backendUrl = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') || undefined;
+    this.socket = io(backendUrl, {
       transports: ['websocket', 'polling'],
       autoConnect: true,
       reconnectionAttempts: 5,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { api } from '../../services/api';
+import { api, getAttachmentUrl } from '../../services/api';
 import { socketService } from '../../services/socket';
 import {
   Ticket,
@@ -113,7 +113,7 @@ export const AdminPortal: React.FC = () => {
   useEffect(() => {
     const handleTicketCreated = (newTicket: Ticket) => {
       setTickets(prev => [newTicket, ...prev.filter(t => t.id !== newTicket.id)]);
-      api.getAdminStats().then(setStats).catch(() => {});
+      api.getAdminStats().then(setStats).catch(() => { });
     };
 
     const handleTicketUpdated = (updatedTicket: Ticket) => {
@@ -121,7 +121,7 @@ export const AdminPortal: React.FC = () => {
       if (selectedTicket && selectedTicket.id === updatedTicket.id) {
         setSelectedTicket(prev => prev ? { ...prev, ...updatedTicket } : null);
       }
-      api.getAdminStats().then(setStats).catch(() => {});
+      api.getAdminStats().then(setStats).catch(() => { });
     };
 
     const handleMessageCreated = (message: TicketMessage) => {
@@ -530,8 +530,8 @@ export const AdminPortal: React.FC = () => {
                   borderLeft: isCritical && isUnresolved
                     ? '4px solid #ef4444'
                     : ticket.priority === 'High' && isUnresolved
-                    ? '4px solid #f97316'
-                    : '4px solid rgba(255, 255, 255, 0.1)',
+                      ? '4px solid #f97316'
+                      : '4px solid rgba(255, 255, 255, 0.1)',
                   transition: 'all 150ms ease'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.5)')}
@@ -666,7 +666,7 @@ export const AdminPortal: React.FC = () => {
                   {selectedTicket.attachment_url && (
                     <div style={{ marginTop: '10px' }}>
                       <a
-                        href={selectedTicket.attachment_url}
+                        href={getAttachmentUrl(selectedTicket.attachment_url)}
                         target="_blank"
                         rel="noreferrer"
                         className="btn btn-secondary btn-sm"

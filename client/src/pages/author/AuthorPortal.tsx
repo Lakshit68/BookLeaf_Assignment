@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { api } from '../../services/api';
+import { api, getAttachmentUrl } from '../../services/api';
 import { socketService } from '../../services/socket';
 import { Book, BooksSummary, Ticket, TicketMessage } from '../../types';
 import { StatusBadge, PriorityBadge, CategoryBadge } from '../../components/Badges';
@@ -997,7 +997,7 @@ export const AuthorPortal: React.FC = () => {
                 {selectedTicket.attachment_url && (
                   <div style={{ marginTop: '12px' }}>
                     <a
-                      href={selectedTicket.attachment_url}
+                      href={getAttachmentUrl(selectedTicket.attachment_url)}
                       target="_blank"
                       rel="noreferrer"
                       className="btn btn-secondary btn-sm"
